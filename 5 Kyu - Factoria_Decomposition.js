@@ -16,4 +16,24 @@
 // factorial can be a very big number (4000! has 12674 digits, n will go from 300 to 4000).
 // In Fortran - as in any other language - the returned string is not permitted to contain any redundant trailing whitespace: you can use dynamically allocated character strings.
 
+function decomp(n) {
+  let arr = {}, result = [];
+
+  for (let i=2; i<=n; i++) {
+    let id = i
+    for (let x in arr) {
+      while (id % x === 0) {
+        id /= x
+        arr[x]++
+      }
+    }
+    if (id > 1) {
+      arr[id] = 1
+    }
+  }
+  for (let x in arr) {
+    (arr[x] === 1 ? result.push(x) : result.push(x+'^'+arr[x]))
+  }
+  return result.join(' * ')
+}
 
